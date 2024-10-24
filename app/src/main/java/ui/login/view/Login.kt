@@ -35,7 +35,7 @@ class Login : AppCompatActivity() {
             val passwordText: String = password.text.toString()
 
             lifecycleScope.launch {
-                viewModel.login(emailText, passwordText)
+                viewModel.login(emailText, passwordText, this@Login)
             }
         }
     }

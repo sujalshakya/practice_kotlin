@@ -1,10 +1,29 @@
-//package base.base.network
-//
-//import okhttp3.Interceptor
-//import okhttp3.Response
-//
-//class Interceptor: Interceptor {
-//    override fun intercept(chain: Interceptor.Chain): Response {
-//        TODO("Not yet implemented")
-//    }
-//}
+package base.network
+
+import android.content.Context
+import android.content.SharedPreferences
+import okhttp3.Interceptor
+import org.json.JSONObject
+
+
+class  Interceptor(context: Context){
+val customInterceptor = Interceptor { chain ->
+    val request = chain.request()
+    val response = chain.proceed(request)
+        val responseBody = response.body()?.string()
+        responseBody?.let {
+            val jsonObject = JSONObject(it)
+            val token: String? = jsonObject.getString("token")
+            val sharedPref = context.getSharedPreferences("Practice",
+              Context.MODE_PRIVATE)
+            val myEdit: SharedPreferences.Editor? = sharedPref.edit()
+            myEdit?.putString("token", token)
+            myEdit?.commit() ?: "";
+
+        }
+    chain.proceed(chain.request())
+}}
+
+
+
+
