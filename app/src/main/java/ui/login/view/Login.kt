@@ -8,7 +8,6 @@ import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.Observer
 import com.example.practice.R
 import kotlinx.coroutines.launch
 import ui.login.viewmodel.LoginViewModel
@@ -24,12 +23,12 @@ class Login : AppCompatActivity() {
         val email: EditText = findViewById(R.id.email)
         val password: EditText = findViewById(R.id.password)
 
-        viewModel.navigate.observe(this, Observer { shouldNavigate ->
+        viewModel.navigate.observe(this) { shouldNavigate ->
             if (shouldNavigate == true) {
                 val intent = Intent(this@Login, Home::class.java)
                 startActivity(intent)
-                       }
-        })
+            }
+        }
 
         submitButton.setOnClickListener {
             val emailText: String = email.text.toString()
