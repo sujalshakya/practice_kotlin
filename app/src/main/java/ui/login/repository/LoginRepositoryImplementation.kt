@@ -7,7 +7,7 @@ import ui.login.model.LoginRequest
 import ui.login.model.LoginResponse
 import ui.login.service.ApiService
 
-class LoginRepositoryImplementation(private val context: Context) : LoginRepository {
+class LoginRepositoryImplementation(context: Context) : LoginRepository {
     private val retrofitHelper: ApiService = RetrofitHelper.getApiService(context)
 
     override suspend fun login(email: String, password: String): Response<LoginResponse> {

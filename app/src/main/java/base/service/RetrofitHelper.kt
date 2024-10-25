@@ -13,7 +13,7 @@ object RetrofitHelper {
         val customInterceptor = CustomInterceptor(context)
 
         val client = OkHttpClient.Builder().apply {
-            addInterceptor(customInterceptor.customInterceptor)
+            addInterceptor(customInterceptor.tokenInterceptor)
         }.build()
 
         val baseUrl = "https://tbe.thuprai.com/"

@@ -10,5 +10,5 @@ data class LoginResponse (
     val organizations: Organizations
 )
 
-class Organizations()
+class Organizations
 

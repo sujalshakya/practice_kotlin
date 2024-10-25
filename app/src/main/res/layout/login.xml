@@ -17,7 +17,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_margin="16dp"
+        android:id="@+id/email_box"
+
         app:startIconDrawable="@android:drawable/sym_action_email"
+
 
         android:hint="@string/email"
         android:layout_height="wrap_content">
@@ -34,6 +37,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         app:passwordToggleEnabled="true"
+        android:id="@+id/password_box"
         android:layout_margin="16dp"
 app:startIconDrawable="@android:drawable/ic_lock_lock"
 

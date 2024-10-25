@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.okhttp)
+    implementation (libs.kotlin.logging.jvm)
     implementation (libs.androidx.lifecycle.livedata.ktx)
     implementation (libs.kotlinx.coroutines.core)
     implementation (libs.kotlinx.coroutines.android)
