@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#FF000000</color>
+    <color name="onPrimary">#FF0066FF</color>
+    <color name="secondary">#FF00FF00</color>
+    <color name="onSecondary">#FF808080</color>
+    <color name="error">#FFFF0000</color>
+    <color name="onError">#FFFFFFFF</color>
+
+    <color name="darkPrimary">#FF0066FF</color>
+    <color name="darkOnPrimary">#FFFFFFFF</color>
+    <color name="darkSecondary">#FF00FF00</color>
+    <color name="darkOnSecondary">#FF808080</color>
+    <color name="darkError">#FFFF0000</color>
+    <color name="darkOnError">#FF000000</color>
 </resources>

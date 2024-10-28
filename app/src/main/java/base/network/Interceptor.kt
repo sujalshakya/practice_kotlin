@@ -4,7 +4,7 @@ import base.service.TokenManager
 import okhttp3.Interceptor
 import org.json.JSONObject
 
-class CustomInterceptor() {
+class CustomInterceptor {
     val tokenInterceptor = Interceptor { chain ->
         val request = chain.request()
         val savedToken = TokenManager.token
@@ -16,7 +16,8 @@ class CustomInterceptor() {
         } else {
             request
         }
-val response = chain.proceed(request)
+
+        val response = chain.proceed(newRequest)
         // add token to shared preference
         val responseBody = response.body?.string()
         responseBody?.let {

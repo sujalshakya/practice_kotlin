@@ -3,5 +3,15 @@
     <style name="Base.Theme.Practice" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/darkPrimary</item>
+        <item name="colorOnPrimary">@color/darkOnPrimary</item>
+        <item name="colorSecondary">@color/darkSecondary</item>
+        <item name="colorOnSecondary">@color/darkOnSecondary</item>
+        <item name="colorError">@color/darkError</item>
+        <item name="colorOnError">@color/darkOnError</item>
+        <item name="startIconTint">@color/error</item>
+
+
+
     </style>
 </resources>

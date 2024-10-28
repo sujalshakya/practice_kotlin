@@ -22,10 +22,12 @@ class MainActivity : AppCompatActivity() {
         if (token != null) {
             val intent = Intent(this@MainActivity, Home::class.java)
             startActivity(intent)
+            finish()
 
         } else {
             val intent = Intent(this@MainActivity, Login::class.java)
             startActivity(intent)
+            finish()
 
         }
     }
