@@ -1,5 +1,6 @@
 package ui.home
 
+import TokenManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -18,11 +19,7 @@ class Home : AppCompatActivity() {
         val logout: Button = findViewById(R.id.logout_button)
 
         logout.setOnClickListener {
-            val sharedPref = this.getSharedPreferences("Practice",
-                Context.MODE_PRIVATE)
-            val myEdit: SharedPreferences.Editor? = sharedPref.edit()
-            myEdit?.clear()
-            myEdit?.apply()
+            TokenManager.remove()
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
 

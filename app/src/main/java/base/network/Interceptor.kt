@@ -1,15 +1,14 @@
 package base.network
 
+import TokenManager
 import android.content.Context
-import android.content.SharedPreferences
 import okhttp3.Interceptor
 import org.json.JSONObject
 
-class CustomInterceptor(context: Context) {
+class CustomInterceptor() {
     val tokenInterceptor = Interceptor { chain ->
         val request = chain.request()
-        val sharedPref = context.getSharedPreferences("Practice", Context.MODE_PRIVATE)
-        val savedToken = sharedPref.getString("token", null)
+        val savedToken = TokenManager.token
         val newRequest = if (savedToken != null) {
             request.newBuilder()
                 .header("Authorization", "Bearer $savedToken")
@@ -23,9 +22,7 @@ val response = chain.proceed(request)
             val jsonObject = JSONObject(it)
             if (jsonObject.has("token")) {
                 val token: String? = jsonObject.getString("token")
-                val myEdit: SharedPreferences.Editor? = sharedPref.edit()
-                myEdit?.putString("token", token)
-                myEdit?.apply()
+                TokenManager.token = token
             }
         }
         chain.proceed(newRequest)

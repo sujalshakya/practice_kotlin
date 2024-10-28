@@ -1,5 +1,6 @@
 package ui.splash
 
+import TokenManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +12,8 @@ class StartScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
-
-        val sharedPreferences = this.getSharedPreferences("Practice", MODE_PRIVATE)
-        val token = sharedPreferences.getString("token", null)
+        TokenManager.setup(applicationContext)
+        val token = TokenManager.token
 
         if (token != null) {
             val intent = Intent(this@StartScreen, Home::class.java)

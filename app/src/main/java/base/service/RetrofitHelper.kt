@@ -1,6 +1,5 @@
 package base.service
 
-import android.content.Context
 import base.network.CustomInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -9,8 +8,8 @@ import ui.login.service.ApiService
 
 object RetrofitHelper {
 
-    fun getApiService(context: Context): ApiService {
-        val customInterceptor = CustomInterceptor(context)
+    fun getApiService(): ApiService {
+        val customInterceptor = CustomInterceptor()
 
         val client = OkHttpClient.Builder().apply {
             addInterceptor(customInterceptor.tokenInterceptor)
