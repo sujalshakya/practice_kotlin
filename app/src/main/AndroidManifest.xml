@@ -18,11 +18,6 @@
         </activity>
         <activity
             android:name="ui.main.MainActivity"
-            android:exported="false">
-
-        </activity>
-        <activity
-            android:name="ui.splash.StartScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +25,7 @@
             </intent-filter>
 
         </activity>
+
         <activity
             android:name="ui.home.Home"
             android:exported="false">
