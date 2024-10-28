@@ -13,8 +13,11 @@ import kotlinx.coroutines.launch
 import ui.login.viewmodel.LoginViewModel
 
 class Login : AppCompatActivity() {
+    // connect to viewmodel.
     private val viewModel: LoginViewModel by viewModels()
+    // var for validation check
     private var isAllFieldsChecked = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +29,9 @@ class Login : AppCompatActivity() {
         val passwordBox: TextInputLayout = findViewById(R.id.password_box)
         val emailBox: TextInputLayout = findViewById(R.id.email_box)
 
-
-
         submitButton.setOnClickListener {
             isAllFieldsChecked = viewModel.checkAllFields(email, emailBox, password, passwordBox)
+
             val emailText: String = email.text.toString()
             val passwordText: String = password.text.toString()
             if (isAllFieldsChecked) {

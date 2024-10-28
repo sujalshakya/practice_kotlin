@@ -7,7 +7,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ui.login.service.ApiService
 
 object RetrofitHelper {
-
     fun getApiService(): ApiService {
         val customInterceptor = CustomInterceptor()
 

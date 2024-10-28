@@ -1,7 +1,6 @@
 package base.network
 
-import TokenManager
-import android.content.Context
+import base.service.TokenManager
 import okhttp3.Interceptor
 import org.json.JSONObject
 
@@ -9,6 +8,7 @@ class CustomInterceptor() {
     val tokenInterceptor = Interceptor { chain ->
         val request = chain.request()
         val savedToken = TokenManager.token
+        // add token to header of api calls
         val newRequest = if (savedToken != null) {
             request.newBuilder()
                 .header("Authorization", "Bearer $savedToken")
@@ -17,6 +17,7 @@ class CustomInterceptor() {
             request
         }
 val response = chain.proceed(request)
+        // add token to shared preference
         val responseBody = response.body?.string()
         responseBody?.let {
             val jsonObject = JSONObject(it)
