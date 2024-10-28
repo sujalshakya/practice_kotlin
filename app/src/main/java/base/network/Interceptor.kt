@@ -1,13 +1,13 @@
 package base.network
 
-import base.service.TokenManager
+import base.service.SharedPreferenceManager
 import okhttp3.Interceptor
 import org.json.JSONObject
 
 class CustomInterceptor {
     val tokenInterceptor = Interceptor { chain ->
         val request = chain.request()
-        val savedToken = TokenManager.token
+        val savedToken = SharedPreferenceManager.token
         // add token to header of api calls
         val newRequest = if (savedToken != null) {
             request.newBuilder()
@@ -24,7 +24,7 @@ class CustomInterceptor {
             val jsonObject = JSONObject(it)
             if (jsonObject.has("token")) {
                 val token: String? = jsonObject.getString("token")
-                TokenManager.token = token
+                SharedPreferenceManager.token = token
             }
         }
         chain.proceed(newRequest)

@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.practice.R
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
+import ui.baseActivity.BaseActivity
 import ui.login.viewmodel.LoginViewModel
 
-class Login : AppCompatActivity() {
+class Login : BaseActivity() {
     // connect to viewmodel.
     private val viewModel: LoginViewModel by viewModels()
     // var for validation check
