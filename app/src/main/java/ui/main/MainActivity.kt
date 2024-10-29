@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import base.service.SharedPreferenceManager
 import com.example.practice.R
-import ui.home.Home
+import ui.home.view.Home
 import ui.login.view.Login
 
 // Navigate to different activity according to the token state.

@@ -1,7 +1,6 @@
 package ui.login.viewmodel
 
 import android.content.Context
-
 import android.content.Intent
 import android.widget.EditText
 import android.widget.Toast
@@ -12,15 +11,13 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.material.textfield.TextInputLayout
 import org.json.JSONObject
 import retrofit2.Response
-import ui.home.Home
+import ui.home.view.Home
 import ui.login.model.LoginResponse
 import ui.login.repository.LoginRepositoryImplementation
 
 class LoginViewModel : ViewModel() {
-
     fun login(emailText: String, passwordText: String, context: Context) {
         viewModelScope.launch {
-
                 val result : Response<LoginResponse> = LoginRepositoryImplementation().login(emailText, passwordText)
                 if (result.isSuccessful){
 val intent = Intent(context, Home:: class.java)
@@ -31,7 +28,6 @@ val intent = Intent(context, Home:: class.java)
                     }
                     Toast.makeText(context, errMsg.toString(), Toast.LENGTH_SHORT).show()
                 }
-
         }
     }
 

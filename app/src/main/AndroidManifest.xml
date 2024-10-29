@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name="ui.home.Home"
+            android:name="ui.home.view.Home"
             android:exported="false">
 
         </activity>

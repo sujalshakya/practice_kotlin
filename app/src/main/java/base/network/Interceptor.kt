@@ -1,14 +1,17 @@
 package base.network
 
+import android.util.Log
 import base.service.SharedPreferenceManager
 import okhttp3.Interceptor
+import okhttp3.Request
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.json.JSONObject
 
 class CustomInterceptor {
     val tokenInterceptor = Interceptor { chain ->
         val request = chain.request()
         val savedToken = SharedPreferenceManager.token
-        // add token to header of api calls
+        // Add token to header of API calls
         val newRequest = if (savedToken != null) {
             request.newBuilder()
                 .header("Authorization", "Bearer $savedToken")
@@ -18,7 +21,7 @@ class CustomInterceptor {
         }
 
         val response = chain.proceed(newRequest)
-        // add token to shared preference
+        // Add token to shared preference
         val responseBody = response.body?.string()
         responseBody?.let {
             val jsonObject = JSONObject(it)
@@ -27,7 +30,16 @@ class CustomInterceptor {
                 SharedPreferenceManager.token = token
             }
         }
-        chain.proceed(newRequest)
 
+        applyLog(newRequest)
+
+        // Return the response
+        response.newBuilder()
+            .body((responseBody ?: "").toResponseBody(response.body?.contentType()))
+            .build()
+    }
+
+    private fun applyLog(request: Request) {
+        Log.d("Request", "Method: ${request.method} Body: ${request.body} Headers: ${request.headers}")
     }
 }
