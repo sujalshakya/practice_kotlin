@@ -1,11 +1,15 @@
 package ui.home.view
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import base.service.SharedPreferenceManager
 import base.service.ThemeManager
@@ -18,7 +22,18 @@ import ui.login.view.Login
 class Home : BaseActivity() {
     private val viewModel: HomeViewmodel by viewModels()
     private lateinit var drawerLayout: DrawerLayout
-    lateinit var  actionBarDrawerToggle: ActionBarDrawerToggle
+    private lateinit var  actionBarDrawerToggle: ActionBarDrawerToggle
+
+    val positiveButtonClick = { dialog: DialogInterface, which: Int ->
+        val currentTheme = SharedPreferenceManager.theme
+        if (currentTheme=="Light"){
+            ThemeManager.saveTheme("Dark")
+        } else {
+            ThemeManager.saveTheme("Light")
+        }
+        recreate()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Select the xml file view using id.
@@ -40,13 +55,8 @@ class Home : BaseActivity() {
         val themeSwitch : Button = findViewById(R.id.themeSwitch)
 
         themeSwitch.setOnClickListener{
-            val currentTheme = SharedPreferenceManager.theme
-            if (currentTheme=="Light"){
-                ThemeManager.saveTheme("Dark")
-            } else {
-                ThemeManager.saveTheme("Light")
-            }
-            recreate()
+            basicAlert()
+
         }
 
     }
@@ -56,6 +66,29 @@ class Home : BaseActivity() {
         }else{
             super.onOptionsItemSelected(item)
         }
+
+    }
+@SuppressLint("MissingSuperCall")
+override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            onBackPressedDispatcher.onBackPressed()
+        }
+    }
+
+    fun basicAlert() {
+
+        val builder = AlertDialog.Builder(this)
+
+        with(builder)
+        {
+            setTitle("Theme")
+            setMessage("Change to dark mode?")
+            setPositiveButton("OK", DialogInterface.OnClickListener(function = positiveButtonClick))
+            show()
+        }
+
 
     }
 }

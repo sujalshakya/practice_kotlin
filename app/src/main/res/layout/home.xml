@@ -36,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/onError"
+        app:itemTextColor="@color/onPrimary"
         android:layout_gravity="start"
         app:menu="@menu/my_drawer_menu"/>
 </androidx.drawerlayout.widget.DrawerLayout>

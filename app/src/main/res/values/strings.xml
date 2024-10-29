@@ -10,5 +10,8 @@
     <string name="profile">Profile</string>
     <string name="nav_open">open</string>
     <string name="nav_close">close</string>
+    <string name="about_us">About Us</string>
+    <string name="share">Share</string>
+    <string name="settings">Settings</string>
 
 </resources>
