@@ -6,32 +6,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/myDrawer_layout">
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:id="@+id/home">
+
+    <ImageButton
+        android:id="@+id/drawerButton"
+        android:layout_width="59dp"
+        android:layout_height="42dp"
+        android:layout_gravity="top|start"
+        android:layout_margin="2dp"
+        android:backgroundTint="@color/onError"
+        android:contentDescription="@string/drawer_icon"
+
+        android:padding="4dp"
+        android:src="@drawable/menu_24dp_0066ff_fill0_wght400_grad0_opsz24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
 
     <Button
         android:id="@+id/logout_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:layout_gravity="center"
         android:layout_margin="16dp"
+        android:padding="16dp"
         android:text="@string/logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toStartOf="parent"
 
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.471" />
 
     <Button
         android:id="@+id/themeSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         android:layout_margin="16dp"
-        android:text="@string/toggle_theme" />
+        android:padding="16dp"
+        android:text="@string/toggle_theme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
