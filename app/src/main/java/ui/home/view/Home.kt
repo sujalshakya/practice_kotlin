@@ -1,20 +1,17 @@
 package ui.home.view
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.viewModels
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import base.service.SharedPreferenceManager
-import base.service.ThemeManager
+import androidx.lifecycle.Observer
 import com.example.practice.R
 import ui.baseActivity.BaseActivity
 import ui.home.viewmodel.HomeViewmodel
@@ -26,74 +23,67 @@ import ui.login.view.Login
 class Home : BaseActivity() {
     private val viewModel: HomeViewmodel by viewModels()
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var  actionBarDrawerToggle: ActionBarDrawerToggle
-    private val toggleTheme = { _: DialogInterface, _: Int ->
-        val currentTheme = SharedPreferenceManager.theme
-        if (currentTheme=="Light"){
-            ThemeManager.saveTheme("Dark")
-        } else {
-            ThemeManager.saveTheme("Light")
-        }
-        recreate()
-    }
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Select the xml file view using id.
         setContentView(R.layout.home)
         val logout: Button = findViewById(R.id.logout_button)
-        val drawer : ImageButton = findViewById(R.id.drawerButton)
-        val themeSwitch : Button = findViewById(R.id.themeSwitch)
+        val drawer: ImageButton = findViewById(R.id.drawerButton)
+        val themeSwitch: Button = findViewById(R.id.themeSwitch)
         drawerLayout = findViewById(R.id.myDrawer_layout)
-        actionBarDrawerToggle = ActionBarDrawerToggle(this,drawerLayout,R.string.nav_open,R.string.nav_close)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // Set up observers
+        setupObservers()
+
         logout.setOnClickListener {
-            // delete token
-            SharedPreferenceManager.remove()
-            // navigate to login activity and then start it.
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
+            viewModel.logout()
         }
 
-        drawer.setOnClickListener{
-            openCloseDrawer()
+        drawer.setOnClickListener {
+            viewModel.openCloseDrawer(drawerLayout)
         }
 
-        themeSwitch.setOnClickListener{
+        themeSwitch.setOnClickListener {
             basicAlert()
         }
-    }
-    private fun openCloseDrawer() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
     }
 
-    private  fun  basicAlert() {
-        val builder = AlertDialog.Builder(this)
-        with(builder)
-        {
+    private fun basicAlert() {
+        AlertDialog.Builder(this).apply {
             setTitle("Theme")
-            setMessage("Change to dark mode?")
-            setPositiveButton("OK", DialogInterface.OnClickListener(function = toggleTheme))
+            setMessage("Change theme mode?")
+            setPositiveButton("OK") { _:DialogInterface, _:Int ->
+                viewModel.toggleTheme()
+                recreate()
+            }
+            setNegativeButton("Cancel", null)
             show()
+            }
         }
-    }
 
-@Deprecated("This method has been deprecated in favor of using the" +
-        "{@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}." +
-        "The OnBackPressedDispatcher controls how back button events are dispatched" +
-        "to one or more {@link OnBackPressedCallback} objects.")
-override fun onBackPressed() {
-    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-        super.onBackPressed()
+        private fun setupObservers() {
+            viewModel.navigateToLogin.observe(this, Observer { shouldNavigate ->
+                if (shouldNavigate) {
+                    // Navigate to the Login activity
+                    startActivity(Intent(this, Login::class.java))
+                    finish() // Close activity
+                }
+            })
         }
     }
-}

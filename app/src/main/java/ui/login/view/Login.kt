@@ -44,11 +44,11 @@ class Login : BaseActivity() {
     }
 
     private fun setupObservers() {
-        viewModel.navigate.observe(this, Observer { shouldNavigate ->
+        viewModel.navigateToHome.observe(this, Observer { shouldNavigate ->
             if (shouldNavigate) {
                 // Navigate to the Home activity
                 startActivity(Intent(this, Home::class.java))
-                finish() // Close ui.login.view.Login activity
+                finish() // Close activity
             }
         })
 

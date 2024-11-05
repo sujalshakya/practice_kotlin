@@ -11,8 +11,8 @@ import org.json.JSONObject
 import ui.login.repository.LoginRepositoryImplementation
 class LoginViewModel : ViewModel() {
 
-    private val _navigate = MutableLiveData<Boolean>()
-    val navigate: LiveData<Boolean> get() = _navigate
+    private val _navigateToHome = MutableLiveData<Boolean>()
+    val navigateToHome: LiveData<Boolean> get() = _navigateToHome
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
@@ -21,12 +21,12 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
             val result = LoginRepositoryImplementation().login(emailText, passwordText)
             if (result.isSuccessful) {
-                _navigate.value = true
+                _navigateToHome.value = true
             } else {
                 val errMsg = result.errorBody()?.string()?.let {
                     JSONObject(it).getJSONArray("non_field_errors")[0].toString()
                 }
-                _errorMessage.value = errMsg ?: "An error occurred"
+                _errorMessage.value = errMsg ?: "Unknown error"
             }
         }
     }
@@ -42,7 +42,7 @@ class LoginViewModel : ViewModel() {
                 false
             }
             password.length() < 8 -> {
-                showError(passwordBox, "Password must be minimum 8 characters")
+                showError(passwordBox, "Password must be minimum 8 letters")
                 false
             }
             else -> {
