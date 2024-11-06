@@ -37,4 +37,11 @@ class HomeViewmodel : ViewModel() {
         SharedPreferenceManager.remove()
         _navigateToLogin.value = true
     }
+
+    fun isDarkThemeEnabled(): Boolean {
+        return SharedPreferenceManager.theme == "Dark"
+    }
+
+
+
 }

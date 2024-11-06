@@ -1,7 +1,5 @@
 package ui.home.view
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -12,6 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import base.CustomDialog
 import com.example.practice.R
 import ui.baseActivity.BaseActivity
 import ui.home.viewmodel.HomeViewmodel
@@ -20,7 +19,7 @@ import ui.login.view.Login
 // Has logout button which deletes token using token manager singleton.
 // Has drawer image button which opens drawer.
 // Has toggle theme button which changes theme of whole app.
-class Home : BaseActivity() {
+class Home : BaseActivity(), CustomDialog.DialogListener{
     private val viewModel: HomeViewmodel by viewModels()
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
@@ -42,7 +41,9 @@ class Home : BaseActivity() {
         setupObservers()
 
         logout.setOnClickListener {
-            viewModel.logout()
+
+            val dialog = CustomDialog.newInstance("Do you want to logout?")
+            dialog.show(supportFragmentManager, CustomDialog.TAG)
         }
 
         drawer.setOnClickListener {
@@ -50,8 +51,8 @@ class Home : BaseActivity() {
         }
 
         themeSwitch.setOnClickListener {
-            basicAlert()
-        }
+            val dialog = CustomDialog.newInstance("Do you want to change theme?")
+            dialog.show(supportFragmentManager, CustomDialog.TAG)        }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -64,19 +65,6 @@ class Home : BaseActivity() {
         })
     }
 
-    private fun basicAlert() {
-        AlertDialog.Builder(this).apply {
-            setTitle("Theme")
-            setMessage("Change theme mode?")
-            setPositiveButton("OK") { _:DialogInterface, _:Int ->
-                viewModel.toggleTheme()
-                recreate()
-            }
-            setNegativeButton("Cancel", null)
-            show()
-            }
-        }
-
         private fun setupObservers() {
             viewModel.navigateToLogin.observe(this, Observer { shouldNavigate ->
                 if (shouldNavigate) {
@@ -86,4 +74,15 @@ class Home : BaseActivity() {
                 }
             })
         }
+    override fun onPositiveButtonClick(message: String) {
+        when (message) {
+            "Do you want to logout?" -> {
+                viewModel.logout()
+            }
+            "Do you want to change theme?" -> {
+                viewModel.toggleTheme()
+                recreate()
+            }
+        }    }
     }
+
