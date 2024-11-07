@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import base.service.SharedPreferenceManager
 import com.example.practice.R
-import ui.home.view.Home
 import ui.login.view.Login
+import ui.users.view.UserView
 
 // Navigate to different activity according to the token state.
 class MainActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val token = SharedPreferenceManager.token
 
         if (token != null) {
-            val intent = Intent(this@MainActivity, Home::class.java)
+            val intent = Intent(this@MainActivity, UserView::class.java)
             startActivity(intent)
             finish()
 

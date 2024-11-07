@@ -5,7 +5,7 @@ import base.service.ThemeManager
 
 open class BaseActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override  fun onCreate(savedInstanceState: Bundle?) {
         // Apply the saved theme before calling super.onCreate()
         ThemeManager.applyTheme(this)
         super.onCreate(savedInstanceState)
