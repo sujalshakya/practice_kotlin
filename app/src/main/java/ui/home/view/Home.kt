@@ -15,6 +15,7 @@ import com.example.practice.R
 import ui.baseActivity.BaseActivity
 import ui.home.viewmodel.HomeViewmodel
 import ui.login.view.Login
+import ui.users.view.UserView
 
 // Has logout button which deletes token using token manager singleton.
 // Has drawer image button which opens drawer.
@@ -31,6 +32,8 @@ class Home : BaseActivity(), CustomDialog.DialogListener{
         val logout: Button = findViewById(R.id.logout_button)
         val drawer: ImageButton = findViewById(R.id.drawerButton)
         val themeSwitch: Button = findViewById(R.id.themeSwitch)
+        val userList: Button = findViewById(R.id.userList)
+
         drawerLayout = findViewById(R.id.myDrawer_layout)
         actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
@@ -39,6 +42,10 @@ class Home : BaseActivity(), CustomDialog.DialogListener{
 
         // Set up observers
         setupObservers()
+
+        userList.setOnClickListener {
+            startActivity(Intent(this, UserView::class.java))
+        }
 
         logout.setOnClickListener {
 

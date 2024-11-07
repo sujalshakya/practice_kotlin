@@ -15,5 +15,6 @@
     <string name="settings">Settings</string>
     <string name="drawer_icon">Drawer Icon</string>
     <string name="item">Item</string>
+    <string name="users">Users</string>
 
 </resources>
