@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import retrofit2.Response
 import ui.users.repository.UserRepositoryImp
 import ui.users.model.UserResponse
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -20,14 +19,13 @@ class UserViewModel : ViewModel() {
     var userList = MutableLiveData<List<User>?>()
     val errorMessage = MutableLiveData<String>()
 
-    fun getUsers(context: Context) {
+    fun getUsers(db: UserDatabase) {
         viewModelScope.launch {
             try {
-                val db = UserDatabase.getDatabase(context.applicationContext)
                 val usersFromDb = db.userDao().getAllUsers() // Assuming you have a method to get all users from the DB
 
                 // Check if users are available in the database
-                if (usersFromDb.isNullOrEmpty()) {
+                if (usersFromDb.isEmpty()) {
                     // If users are not available in the DB, make a network call
                     val response: Response<UserResponse> = userRepository.getUsers()
                     if (response.isSuccessful) {
@@ -44,7 +42,6 @@ class UserViewModel : ViewModel() {
                         errorMessage.value = "Error: ${response.message()}"
                     }
                 } else {
-                    // If users are already in the database, show them
                     userList.value = usersFromDb
                 }
             } catch (e: Exception) {

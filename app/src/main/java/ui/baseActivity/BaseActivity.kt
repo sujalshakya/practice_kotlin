@@ -10,6 +10,5 @@ open class BaseActivity : AppCompatActivity() {
         // Apply the saved theme before calling super.onCreate()
         ThemeManager.applyTheme(this)
         super.onCreate(savedInstanceState)
-        val myRoomDatabase = UserDatabase.getDatabase(this)
     }
 }

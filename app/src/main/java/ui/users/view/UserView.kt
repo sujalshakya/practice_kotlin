@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import base.room.UserDatabase
 import com.example.practice.R
 import kotlinx.coroutines.launch
 import ui.baseActivity.BaseActivity
@@ -17,6 +18,8 @@ class UserView : BaseActivity() {
     private val viewModel: UserViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var userAdapter: UserAdapter
+    private val db = UserDatabase.getDatabase(this@UserView)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +46,10 @@ class UserView : BaseActivity() {
             }
         })
 
+
+
         // Fetch users when the activity is created
         lifecycleScope.launch {
-            viewModel.getUsers(this@UserView)
+            viewModel.getUsers(db)
         }    }
 }

@@ -1,4 +1,4 @@
-package base
+package base.fragments
 
 import android.app.AlertDialog
 import android.app.Dialog

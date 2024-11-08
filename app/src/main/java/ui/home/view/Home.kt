@@ -10,7 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
-import base.CustomDialog
+import base.fragments.CustomDialog
 import com.example.practice.R
 import ui.baseActivity.BaseActivity
 import ui.home.viewmodel.HomeViewmodel

@@ -4,7 +4,7 @@ package ui.users.repository
 import ui.users.model.UserResponse
 import base.service.RetrofitHelper
 import retrofit2.Response
-import ui.login.service.ApiService
+import base.service.ApiService
 
 class UserRepositoryImp() : UserRepository {
     private val retrofitHelper: ApiService = RetrofitHelper.getApiService()

@@ -1,4 +1,4 @@
-package ui.login.service
+package base.service
 
 import ui.users.model.UserResponse
 import retrofit2.Response

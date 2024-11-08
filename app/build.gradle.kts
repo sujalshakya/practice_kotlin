@@ -1,7 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")}
+    id("com.google.devtools.ksp")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+
+}
 
 android {
     namespace = "com.example.practice"
@@ -38,6 +42,8 @@ android {
 dependencies {
     implementation(libs.okhttp)
     implementation(libs.androidx.room.runtime)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.kotlinx.coroutines.android.v152)
