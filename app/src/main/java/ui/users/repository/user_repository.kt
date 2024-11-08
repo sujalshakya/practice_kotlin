@@ -1,6 +1,6 @@
 package ui.users.repository
 
-import UserResponse
+import ui.users.model.UserResponse
 import retrofit2.Response
 
 interface UserRepository {

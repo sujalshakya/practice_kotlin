@@ -1,6 +1,6 @@
 package ui.login.service
 
-import UserResponse
+import ui.users.model.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.practice.R
 import kotlinx.coroutines.launch
 import ui.baseActivity.BaseActivity
-import ui.users.adapter.UserAdapter
 import ui.users.viewmodel.UserViewModel
 
 class UserView : BaseActivity() {
@@ -46,6 +45,6 @@ class UserView : BaseActivity() {
 
         // Fetch users when the activity is created
         lifecycleScope.launch {
-            viewModel.getUsers()
+            viewModel.getUsers(this@UserView)
         }    }
 }

@@ -1,7 +1,6 @@
-// UserAdapter.kt
-package ui.users.adapter
+package ui.users.view
 
-import User
+import ui.users.model.User
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,6 @@ class UserAdapter(private var users: List<User>) : RecyclerView.Adapter<UserAdap
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = users[position]
 
-        // Set full name by combining first and last name
         holder.userName.text = "${user.first_name} ${user.last_name}"
         holder.userEmail.text = user.email
 
