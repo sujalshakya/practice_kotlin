@@ -40,6 +40,6 @@ class CustomInterceptor {
     }
 
     private fun applyLog(request: Request) {
-        Log.d("Request", "Method: ${request.method} Body: ${request.body} Headers: ${request.headers}")
+        Log.d("Request", "Method: ${request.method} Body: ${request.body.toString()} Headers: ${request.headers}")
     }
 }

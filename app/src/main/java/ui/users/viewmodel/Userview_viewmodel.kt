@@ -12,21 +12,26 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class UserViewModel : ViewModel() {
 
-    private val userRepository = UserRepositoryImp()
+class UserViewModel
+@Inject constructor(
+    private val userRepository : UserRepositoryImp
+)
+    : ViewModel() {
+
     var userList = MutableLiveData<List<User>?>()
     val errorMessage = MutableLiveData<String>()
 
     fun getUsers(db: UserDatabase) {
         viewModelScope.launch {
             try {
-                val usersFromDb = db.userDao().getAllUsers() // Assuming you have a method to get all users from the DB
+                val usersFromDb = db.userDao().getAllUsers()
 
-                // Check if users are available in the database
+                // Check if users are in the database
                 if (usersFromDb.isEmpty()) {
-                    // If users are not available in the DB, make a network call
+                    // If users are not available in the DB, make api call
                     val response: Response<UserResponse> = userRepository.getUsers()
                     if (response.isSuccessful) {
                         val users = response.body()?.data

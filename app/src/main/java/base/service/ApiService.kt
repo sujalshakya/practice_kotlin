@@ -16,4 +16,3 @@ interface ApiService {
     suspend fun getUsers(): Response<UserResponse>
 
 }
-

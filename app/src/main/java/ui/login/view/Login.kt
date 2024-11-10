@@ -5,18 +5,20 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.practice.R
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 import ui.baseActivity.BaseActivity
 import ui.home.view.Home
 import ui.login.viewmodel.LoginViewModel
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class Login : BaseActivity() {
     // Connect to ViewModel
-    private val viewModel: LoginViewModel by viewModels()
-    // Variable for validation check
+    @Inject
+    lateinit var viewModel: LoginViewModel    // Variable for validation check
     private var isAllFieldsChecked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {

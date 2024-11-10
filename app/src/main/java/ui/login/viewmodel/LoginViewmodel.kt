@@ -9,7 +9,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.material.textfield.TextInputLayout
 import org.json.JSONObject
 import ui.login.repository.LoginRepositoryImplementation
-class LoginViewModel : ViewModel() {
+import javax.inject.Inject
+
+class LoginViewModel @Inject constructor(
+    private val loginRepository: LoginRepositoryImplementation
+)  : ViewModel() {
 
     private val _navigateToHome = MutableLiveData<Boolean>()
     val navigateToHome: LiveData<Boolean> get() = _navigateToHome
@@ -19,7 +23,7 @@ class LoginViewModel : ViewModel() {
 
     fun login(emailText: String, passwordText: String) {
         viewModelScope.launch {
-            val result = LoginRepositoryImplementation().login(emailText, passwordText)
+            val result = loginRepository.login(emailText, passwordText)
             if (result.isSuccessful) {
                 _navigateToHome.value = true
             } else {

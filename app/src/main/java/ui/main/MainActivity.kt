@@ -5,11 +5,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import base.service.SharedPreferenceManager
 import com.example.practice.R
+import dagger.hilt.android.AndroidEntryPoint
 import ui.home.view.Home
 import ui.login.view.Login
 import ui.users.view.UserView
 
 // Navigate to different activity according to the token state.
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     // state of activity when it is first created.
     override fun onCreate(savedInstanceState: Bundle?) {

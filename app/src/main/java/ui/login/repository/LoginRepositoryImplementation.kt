@@ -1,17 +1,18 @@
 package ui.login.repository
 
-import base.service.RetrofitHelper
 import retrofit2.Response
 import ui.login.model.LoginRequest
 import ui.login.model.LoginResponse
 import base.service.ApiService
+import javax.inject.Inject
 
-class LoginRepositoryImplementation : LoginRepository {
-    private val retrofitHelper: ApiService = RetrofitHelper.getApiService()
+class LoginRepositoryImplementation @Inject constructor(
+    private val apiService: ApiService
+)  : LoginRepository {
 
     override suspend fun login(email: String, password: String): Response<LoginResponse> {
         val loginRequest = LoginRequest(username = email, password = password)
 
-        return retrofitHelper.login(loginRequest)
+        return apiService.login(loginRequest)
     }
 }

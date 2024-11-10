@@ -2,54 +2,51 @@ package ui.users.view
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import base.room.UserDatabase
 import com.example.practice.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ui.baseActivity.BaseActivity
 import ui.users.viewmodel.UserViewModel
-
+import javax.inject.Inject
+@AndroidEntryPoint
 class UserView : BaseActivity() {
-
-    private val viewModel: UserViewModel by viewModels()
+    @Inject
+    lateinit var viewModel: UserViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var userAdapter: UserAdapter
-    private val db = UserDatabase.getDatabase(this@UserView)
-
+    private lateinit var db: UserDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.user_view) // Ensure this is the correct layout file
+        setContentView(R.layout.user_view)
 
         recyclerView = findViewById(R.id.recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Initialize the adapter with an empty list and set it to the RecyclerView
         userAdapter = UserAdapter(emptyList())
         recyclerView.adapter = userAdapter
 
-        // Observe user list and update the adapter's data when it changes
+        db = UserDatabase.getDatabase(applicationContext)
+
         viewModel.userList.observe(this, Observer { users ->
             users?.let {
                 userAdapter.updateData(it)
             }
         })
 
-        // Observe error messages and display them if any
         viewModel.errorMessage.observe(this, Observer { message ->
             message?.let {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
         })
 
-
-
-        // Fetch users when the activity is created
         lifecycleScope.launch {
             viewModel.getUsers(db)
-        }    }
+        }
+    }
 }

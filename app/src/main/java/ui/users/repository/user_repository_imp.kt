@@ -1,17 +1,19 @@
 package ui.users.repository
 
-
 import ui.users.model.UserResponse
-import base.service.RetrofitHelper
 import retrofit2.Response
 import base.service.ApiService
+import javax.inject.Inject
 
-class UserRepositoryImp() : UserRepository {
-    private val retrofitHelper: ApiService = RetrofitHelper.getApiService()
-
+class UserRepositoryImp @Inject constructor(
+    private val apiService: ApiService
+) : UserRepository {
 
     override suspend fun getUsers(): Response<UserResponse> {
-        return retrofitHelper.getUsers()    }
-
-
+        return try {
+            apiService.getUsers()
+        } catch (e: Exception) {
+            throw e
+        }
+    }
 }
