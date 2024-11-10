@@ -2,7 +2,6 @@ package ui.users.view
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,17 +32,17 @@ class UserView : BaseActivity() {
 
         db = UserDatabase.getDatabase(applicationContext)
 
-        viewModel.userList.observe(this, Observer { users ->
+        viewModel.userList.observe(this) { users ->
             users?.let {
                 userAdapter.updateData(it)
             }
-        })
+        }
 
-        viewModel.errorMessage.observe(this, Observer { message ->
+        viewModel.errorMessage.observe(this) { message ->
             message?.let {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
         lifecycleScope.launch {
             viewModel.getUsers(db)

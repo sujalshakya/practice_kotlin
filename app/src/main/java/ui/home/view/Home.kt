@@ -9,7 +9,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
 import base.fragments.CustomDialog
 import com.example.practice.R
 import ui.baseActivity.BaseActivity
@@ -73,13 +72,13 @@ class Home : BaseActivity(), CustomDialog.DialogListener{
     }
 
         private fun setupObservers() {
-            viewModel.navigateToLogin.observe(this, Observer { shouldNavigate ->
+            viewModel.navigateToLogin.observe(this) { shouldNavigate ->
                 if (shouldNavigate) {
                     // Navigate to the Login activity
                     startActivity(Intent(this, Login::class.java))
                     finish() // Close activity
                 }
-            })
+            }
         }
     override fun onPositiveButtonClick(message: String) {
         when (message) {

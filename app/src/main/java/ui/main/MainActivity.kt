@@ -8,7 +8,6 @@ import com.example.practice.R
 import dagger.hilt.android.AndroidEntryPoint
 import ui.home.view.Home
 import ui.login.view.Login
-import ui.users.view.UserView
 
 // Navigate to different activity according to the token state.
 @AndroidEntryPoint

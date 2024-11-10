@@ -18,7 +18,8 @@ import javax.inject.Inject
 class Login : BaseActivity() {
     // Connect to ViewModel
     @Inject
-    lateinit var viewModel: LoginViewModel    // Variable for validation check
+    lateinit var viewModel: LoginViewModel
+    // Variable for validation check
     private var isAllFieldsChecked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,20 +47,20 @@ class Login : BaseActivity() {
     }
 
     private fun setupObservers() {
-        viewModel.navigateToHome.observe(this, Observer { shouldNavigate ->
+        viewModel.navigateToHome.observe(this) { shouldNavigate ->
             if (shouldNavigate) {
                 // Navigate to the Home activity
                 startActivity(Intent(this, Home::class.java))
                 finish() // Close activity
             }
-        })
+        }
 
         // Observe error messages to display as Toasts
-        viewModel.errorMessage.observe(this, Observer { message ->
+        viewModel.errorMessage.observe(this) { message ->
             message?.let {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
 

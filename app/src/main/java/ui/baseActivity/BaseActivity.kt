@@ -1,5 +1,4 @@
 package ui.baseActivity
-import base.room.UserDatabase
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import base.service.ThemeManager

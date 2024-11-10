@@ -1,6 +1,5 @@
-package base.module
+package base.network
 
-import base.network.CustomInterceptor
 import base.service.ApiService
 import dagger.Module
 import dagger.Provides

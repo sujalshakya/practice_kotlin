@@ -1,6 +1,5 @@
 package ui.home.viewmodel
 
-import android.content.DialogInterface
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LiveData
@@ -38,9 +37,7 @@ class HomeViewmodel : ViewModel() {
         _navigateToLogin.value = true
     }
 
-    fun isDarkThemeEnabled(): Boolean {
-        return SharedPreferenceManager.theme == "Dark"
-    }
+
 
 
 
